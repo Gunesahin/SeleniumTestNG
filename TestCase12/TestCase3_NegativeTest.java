@@ -6,11 +6,11 @@ import org.openqa.selenium.*;
 
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-public class TestCase4_NegativeTest {
+
+public class TestCase3_NegativeTest {
 
     WebDriver driver;
 
@@ -36,11 +36,11 @@ public class TestCase4_NegativeTest {
         WebElement product = driver.findElement(By.xpath("//*[@id='logo']/h1/a"));
 
         // Bir ürün seç
-        WebElement add = driver.findElement(By.xpath("(//h4/a)[1]"));
+        WebElement add = driver.findElement(By.xpath("//h4"));
         add.click();
 
         // Sepete ekle butonuna tıkla
-        WebElement addToCart = driver.findElement(By.id("button-cart"));
+        WebElement addToCart = driver.findElement(By.xpath("//*[@id=\"content\"]/div[2]/div[1]/div/div[3]/button[1]"));
         addToCart.click();
         Thread.sleep(1000);
 
@@ -70,7 +70,6 @@ public class TestCase4_NegativeTest {
 
         // Your Personal Details kismini doldurur.
         Faker faker = new Faker();
-        String email = faker.internet().emailAddress();
         Actions actions = new Actions(driver);
         // String email = faker.internet().emailAddress();
 
@@ -83,8 +82,8 @@ public class TestCase4_NegativeTest {
         lastName.sendKeys(faker.name().lastName());
 
         //“Email” giris kutusuna bir mail yazin
-        WebElement mail = driver.findElement(By.xpath("//input[@name='email']"));
-        actions.sendKeys(email);
+        WebElement email = driver.findElement(By.id("input-payment-email"));
+        email.sendKeys(faker.internet().emailAddress());
         Thread.sleep(3000);
 
         // “Telephone” giris kutusuna bir tlf-no yazin
@@ -93,27 +92,18 @@ public class TestCase4_NegativeTest {
         Thread.sleep(3000);
 
         // Your Address Details kismini doldurur.
-        WebElement address = driver.findElement(By.xpath("(//input)[16]"));
+        WebElement address = driver.findElement(By.id("input-payment-address-1"));
         address.sendKeys(faker.address().fullAddress());
 
         // Your City
-        WebElement city = driver.findElement(By.xpath("(//input)[18]"));
+        WebElement city = driver.findElement(By.id("input-payment-city"));
         city.sendKeys(faker.address().city());
 
         // Your postCode
-        WebElement postCode = driver.findElement(By.xpath("(//input)[19]"));
+        WebElement postCode = driver.findElement(By.id("input-payment-postcode"));
         postCode.sendKeys(faker.address().zipCode());
-
-        // Your Country
-        WebElement country = driver.findElement(By.name("country_id"));
-        Select select = new Select(country);
-        select.selectByVisibleText("United Kingdom");
-
-        // Your Region
-        WebElement zone = driver.findElement(By.name("zone_id"));
-        Select selec = new Select(zone);
-        selec.selectByVisibleText("Aberdeen");
         Thread.sleep(3000);
+
 
         // Kullanıcı, Payment Method bolumunde PayPal veya benzeri bir ödeme yöntemi ile de ödeme yapmayi seçmelidir.
         // Eğer hata yaparsa, kullanıcıya ne yapması gerektiği açıklanmalı ve "Warning: No Payment options are available. Please contact us for assistance!" hatasi dogrulanmalidir.
@@ -129,12 +119,12 @@ public class TestCase4_NegativeTest {
         confirmOrder.click();
 
         // Beklenen Sonuç: Payment Method kısmında  PayPal veya benzeri  bir ödeme yöntemi seçeneği görünmemelidir.
-       // Kullanıcı, ödemeyi Paypal vb. yöntem seçemeden siparişini tamamlayabilmelidir.
+        // Kullanıcı, ödemeyi Paypal vb. yöntem seçemeden siparişini tamamlayabilmelidir.
 
-       // Gerçekleşen Sonuç: Payment Method kısmında herhangi bir ödeme yöntemi seçeneği görünmemektedir.
-      // Sayfayı yenilemek veya farklı browser ler sonucu degiştirmek, sorunu çözmemektedir.
+        // Gerçekleşen Sonuç: Payment Method kısmında herhangi bir ödeme yöntemi seçeneği görünmemektedir.
+        // Sayfayı yenilemek veya farklı browser ler sonucu degiştirmek, sorunu çözmemektedir.
 
-
+       // TODO Bug Raporo hazirlandi
 
     }
 }
