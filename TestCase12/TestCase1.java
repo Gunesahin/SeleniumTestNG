@@ -84,9 +84,8 @@ public class TestCase1 {
         lastName.sendKeys(faker.name().lastName());
 
         //“Email” giris kutusuna bir mail yazin
-        WebElement mail = driver.findElement(By.xpath("//input[@name='email']"));
-        String email = faker.internet().emailAddress();
-        actions.sendKeys(email);
+        WebElement email = driver.findElement(By.id("input-payment-email"));
+        email.sendKeys(faker.internet().emailAddress());
         Thread.sleep(3000);
 
         // “Telephone” giris kutusuna bir tlf-no yazin
@@ -95,15 +94,15 @@ public class TestCase1 {
         Thread.sleep(3000);
 
         // Your Address Details kismini doldurur.
-        WebElement address = driver.findElement(By.xpath("(//input)[16]"));
+        WebElement address = driver.findElement(By.id("input-payment-address-1"));
         address.sendKeys(faker.address().fullAddress());
 
         // Your City
-        WebElement city = driver.findElement(By.xpath("(//input)[18]"));
+        WebElement city = driver.findElement(By.id("input-payment-city"));
         city.sendKeys(faker.address().city());
 
         // Your postCode
-        WebElement postCode = driver.findElement(By.xpath("(//input)[19]"));
+        WebElement postCode = driver.findElement(By.id("input-payment-postcode"));
         postCode.sendKeys(faker.address().zipCode());
 
         // Your Country
@@ -127,6 +126,8 @@ public class TestCase1 {
         // Hata yoksa Contiunue butonuna tiklar.
         // ödeme işlemini tamamlandigini dogrulayin.
 
+        //TODO Alisveris sayfasina "Guest" olarak ve tek urun secerek ilerleyince Payment kisminda herhangi bir odeme methodu ile karsilasilmadi
+        // BUG Ticked hazirlandi
         WebElement actualResult = driver.findElement(By.xpath("(//div)[65]"));
 
         String expectedText = "Warning: No Payment options are available. Please";
