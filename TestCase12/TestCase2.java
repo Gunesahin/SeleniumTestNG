@@ -36,7 +36,7 @@ public class TestCase2 {
     }
 
     @Test
-    public void testPayment() throws InterruptedException {
+    public void testPaymentFlat() throws InterruptedException {
         Faker faker = new Faker();
         Actions actions = new Actions(driver);
         String psvrd = faker.number().digit();
